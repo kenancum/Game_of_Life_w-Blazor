@@ -1,0 +1,191 @@
+﻿@page "/counter"
+
+<h1>Game of Live</h1>
+
+<p>Current count: @currentCount and current radio @theRadio</p>
+<hr>
+@{
+    if (currentCount == 0)
+    {
+        e.put_pattern(6, 6, "pentadecathlon");
+    }
+    int svgh = e.total_of_rows() * 9 + 2;
+    int svgw = e.total_of_cols() * 9 + 2;
+
+}
+<svg width="@svgw" height="@svgh">
+    <defs>
+        <filter id="myBlur" x="0" y="0">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
+        </filter>
+    </defs>
+    @for (var i = 0; i < e.total_of_rows(); i++)
+    {
+        @for (var j = 0; j < e.total_of_cols(); j++)
+        {
+            int cy = (i * 9 + 4 + 1);
+            int cx = (j * 9 + 4 + 1);
+            int idx = i;
+            int jdx = j;
+            @if (e.biounit(i, j) != null)
+            {
+                <circle cx="@cx" cy="@cy" r="4" fill="#90FA90"
+                filter="url(#myBlur)" @onclick="()=>CellClick(idx,jdx)"  />
+            }
+            else
+            {
+                <circle cx="@cx" cy="@cy" r="4" fill="#909090"
+                filter="url(#myBlur)" @onclick="()=>CellClick(idx,jdx)" />
+            }
+        }
+    }
+</svg>
+<hr>
+<p>
+    <input type="radio" name="myradiobtn"
+           checked="@(theRadio.Equals("step"))"
+           value="step"
+           @onchange="ClickRadio" /> Step by Step
+    <input type="radio" name="myradiobtn"
+           checked="@(theRadio.Equals("many"))"
+           value="many"
+           @onchange="ClickRadio" /> Several steps
+</p>
+
+<div style="display:@(theRadio.Equals("many")?"":"none")">
+    <h5>Cycles specification </h5>
+    Number of cycles:
+    <input @bind="cyclesPerTime" /> (internal value: @cyclesPerTime)
+    <hr>
+</div>
+
+<div style="display:@(theRadio.Equals("step")?"":"none")">
+    <label for="values">Choose a value:</label>
+    <select name="values" id="values">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+    </select>
+</div>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Next</button>
+
+
+<a class="btn btn-primary"
+   href="https://en.wikipedia.org/wiki/Conway%27s_Game_Of_Life"
+   target="_blank">
+    Look for Patterns in Wikipedia
+</a>
+
+<div>
+    <hr>
+    <button class="btn btn-primary" @onclick="changeDivPattern">@addPattern</button>
+
+    <hr>
+    @if (showPattern)
+    {
+        <label for="types">Choose a type:</label>
+        <select name="type" id="types" @bind="@type">
+            <option value="blink">Blink</option>
+            <option value="toad">Toad</option>
+            <option value="pentadecathlon">Pentadecathlon</option>
+        </select>
+        <hr>
+        <p>row <input type="number" name="row" @bind="@row"> col <input type="number" name="column" @bind="@column">Pattern Pentadecathlon <input type="submit" class="btn btn-primary" value="Add" @onclick="createPattern"></p>
+
+    }
+    <hr>
+    <button class="btn btn-primary" @onclick="changeDivCells">@addCells</button>
+    <hr>
+    @if (showCells)
+    {
+        <p><input type="submit" class="btn btn-primary" value="Add" @onclick="createCell"></p>
+    }
+</div>
+
+
+
+@code {
+    private string type = "";
+    private int row;
+    private int column;
+    private int cyclesPerTime;
+    private int currentCount;
+    private string addCells = "Add Cells";
+    private string addPattern = "Add Pattern";
+    private bool showPattern = false;
+    private bool showCells = false;
+    private string cells = "";
+    private string theRadio = "";
+    private Data.BioUnit u;
+    private Data.Environment e = new Data.Environment(30, 30);
+
+
+    private bool CellClick(int row, int col)
+    {
+        e.onOff(row,col);
+        return true;
+    }
+    private void createPattern()
+    {
+        e.put_pattern(this.row, this.column, this.type);
+    }
+    private void createCell()
+    {
+        int counter = 0;
+        string[] cellList = cells.Split(new Char[] { ',', '\n' });
+
+        while (counter < cellList.Length)
+        {
+            this.row = Int32.Parse(cellList[counter]);
+            counter++;
+
+            this.column = Int32.Parse(cellList[counter]);
+            counter++;
+
+            e.insert(row, column, new Data.BioUnit(row, column, e));
+        }
+
+    }
+    private void IncrementCount()
+    {
+        currentCount++;
+        e.nextConwayStep();
+    }
+    private void ClickRadio(ChangeEventArgs args)
+    {
+        theRadio = args.Value.ToString();
+        currentCount++;
+    }
+    private void changeDivPattern()
+    {
+        if (showPattern == true)
+        {
+            showPattern = false;
+        }
+        else
+            showPattern = true;
+
+        if (addPattern == "Add Pattern")
+            addPattern = "Add Pattern (-)";
+
+        else if (addPattern == "Add Pattern (-)")
+            addPattern = "Add Pattern";
+    }
+    private void changeDivCells()
+    {
+        if (showCells == true)
+        {
+            showCells = false;
+        }
+        else
+            showCells = true;
+
+        if (addCells == "Add Cells")
+            addCells = "Add Cells (-)";
+
+        else if (addCells == "Add Cells (-)")
+            addCells = "Add Cells";
+    }
+}
