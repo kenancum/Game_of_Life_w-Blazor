@@ -5,8 +5,9 @@
 <p>Current count: @currentCount and current radio @theRadio</p>
 <hr>
 @{
-    if (currentCount == 0)
+    if (firstStart)
     {
+        firstStart = false;
         e.put_pattern(6, 6, "pentadecathlon");
     }
     int svgh = e.total_of_rows() * 9 + 2;
@@ -40,6 +41,9 @@
         }
     }
 </svg>
+<hr>
+<button class="btn btn-primary" @onclick="@(async() => {StopWach();})">@playPause</button>
+<button class="btn btn-primary" @onclick="ResetTable" >Reset</button>
 <hr>
 <p>
     <input type="radio" name="myradiobtn"
@@ -122,9 +126,28 @@
     private string cells = "";
     private string theRadio = "";
     private Data.BioUnit u;
-    private Data.Environment e = new Data.Environment(30, 30);
-
-
+    private Data.Environment e = new Data.Environment(40, 40);
+    bool is_stopwathcrunning = false;
+    private string playPause = "Play";
+    private bool firstStart = true;
+    async Task StopWach()
+    {
+        is_stopwathcrunning = true;
+        playPause = playPause == "Play" ? "Pause" : "Play";
+        while (is_stopwathcrunning)
+        {
+            if(playPause == "Play")
+            {
+                break;
+            }
+            if (is_stopwathcrunning)
+            {
+                IncrementCount();
+                StateHasChanged();
+            }
+            await Task.Delay(100);
+        }
+    }
     private bool CellClick(int row, int col)
     {
         e.onOff(row,col);
@@ -180,5 +203,14 @@
 
         else if (addCells == "Add Cells (-)")
             addCells = "Add Cells";
+    }
+    private void ResetTable()
+    {
+        if (playPause == "Pause")
+        {
+            playPause = "Play";
+        }
+        e = new Data.Environment(40, 40);
+        currentCount = 0;
     }
 }
