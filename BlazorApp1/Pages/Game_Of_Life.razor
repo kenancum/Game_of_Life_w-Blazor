@@ -98,8 +98,12 @@
             <option value="a_for_all">A for all</option>
             <option value="gosper_glider">Gosper's glider gun</option>
         </select>
-        <hr>
-        <p>row <input type="number" name="row" @bind="@row"> col <input type="number" name="column" @bind="@column">Pattern Pentadecathlon <input type="submit" class="btn btn-primary" value="Add" @onclick="createPattern"></p>
+        <br>
+        <p>row <input type="number" name="row" @bind="@row"> col <input type="number" name="column" @bind="@column">
+            <br>
+            <br>
+            <input type="submit" class="btn btn-primary" value="Add" @onclick="createPattern">
+        </p>
 
     }
     <hr>
@@ -115,7 +119,7 @@
 
 
 @code {
-    private string type = "";
+    private string type = "blink";
     private int row;
     private int column;
     private int cyclesPerTime;
