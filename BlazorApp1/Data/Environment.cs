@@ -191,7 +191,6 @@ namespace BlazorApp1.Data
                     }
                 }
             }
-
             else if (pattern.Equals("blink"))
             {
                 for (var i = 0; i < 3; i++)
@@ -199,7 +198,6 @@ namespace BlazorApp1.Data
                     this.insert(x, y + i, new BioUnit(x , y + i , this));
                 }
             }
-
             else if (pattern.Equals("toad"))
             {
                 for (int i = 0; i < 2; i++)
@@ -239,6 +237,45 @@ namespace BlazorApp1.Data
                         }
                     }
                 }
+            }
+            else if (pattern.Equals("gosper_glider"))
+            {
+                this.insert(x + 5, y + 1, new BioUnit(x + 5, y + 1, this));
+                this.insert(x + 5, y + 2, new BioUnit(x + 5, y + 2, this));
+                this.insert(x + 6, y + 1, new BioUnit(x + 6, y + 1, this));
+                this.insert(x + 6, y + 2, new BioUnit(x + 6, y + 2, this));
+                this.insert(x + 3, y + 13, new BioUnit(x + 3, y + 13, this));
+                this.insert(x + 3, y + 14, new BioUnit(x + 3, y + 14, this));
+                this.insert(x + 4, y + 12, new BioUnit(x + 4, y + 12, this));
+                this.insert(x + 5, y + 11, new BioUnit(x + 5, y + 11, this));
+                this.insert(x + 6, y + 11, new BioUnit(x + 6, y + 11, this));
+                this.insert(x + 7, y + 11, new BioUnit(x + 7, y + 11, this));
+                this.insert(x + 8, y + 12, new BioUnit(x + 8, y + 12, this));
+                this.insert(x + 9, y + 13, new BioUnit(x + 9, y + 13, this));
+                this.insert(x + 9, y + 14, new BioUnit(x + 9, y + 14, this));
+                this.insert(x + 6, y + 15, new BioUnit(x + 6, y + 15, this));
+                this.insert(x + 4, y + 16, new BioUnit(x + 4, y + 16, this));
+                this.insert(x + 8, y + 16, new BioUnit(x + 8, y + 16, this));
+                this.insert(x + 5, y + 17, new BioUnit(x + 5, y + 17, this));
+                this.insert(x + 6, y + 17, new BioUnit(x + 6, y + 17, this));
+                this.insert(x + 7, y + 17, new BioUnit(x + 7, y + 17, this));
+                this.insert(x + 6, y + 18, new BioUnit(x + 6, y + 18, this));
+                this.insert(x + 3, y + 21, new BioUnit(x + 3, y + 21, this));
+                this.insert(x + 4, y + 21, new BioUnit(x + 4, y + 21, this));
+                this.insert(x + 5, y + 21, new BioUnit(x + 5, y + 21, this));
+                this.insert(x + 3, y + 22, new BioUnit(x + 3, y + 22, this));
+                this.insert(x + 4, y + 22, new BioUnit(x + 4, y + 22, this));
+                this.insert(x + 5, y + 22, new BioUnit(x + 5, y + 22, this));
+                this.insert(x + 2, y + 23, new BioUnit(x + 2, y + 23, this));
+                this.insert(x + 6, y + 23, new BioUnit(x + 6, y + 23, this));
+                this.insert(x + 1, y + 25, new BioUnit(x + 1, y + 25, this));
+                this.insert(x + 2, y + 25, new BioUnit(x + 2, y + 25, this));
+                this.insert(x + 6, y + 25, new BioUnit(x + 6, y + 25, this));
+                this.insert(x + 7, y + 25, new BioUnit(x + 7, y + 25, this));
+                this.insert(x + 3, y + 35, new BioUnit(x + 3, y + 35, this));
+                this.insert(x + 4, y + 35, new BioUnit(x + 4, y + 35, this));
+                this.insert(x + 3, y + 36, new BioUnit(x + 3, y + 36, this));
+                this.insert(x + 4, y + 36, new BioUnit(x + 4, y + 36, this));
             }
         }
     }

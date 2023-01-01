@@ -8,7 +8,7 @@
     if (firstStart)
     {
         firstStart = false;
-        e.put_pattern(6, 6, "pentadecathlon");
+        e.put_pattern(0, 0, "gosper_glider");
     }
     int svgh = e.total_of_rows() * 9 + 2;
     int svgw = e.total_of_cols() * 9 + 2;
@@ -96,6 +96,7 @@
             <option value="pentadecathlon">Pentadecathlon</option>
             <option value="bipole">Bipole</option>
             <option value="a_for_all">A for all</option>
+            <option value="gosper_glider">Gosper's glider gun</option>
         </select>
         <hr>
         <p>row <input type="number" name="row" @bind="@row"> col <input type="number" name="column" @bind="@column">Pattern Pentadecathlon <input type="submit" class="btn btn-primary" value="Add" @onclick="createPattern"></p>
