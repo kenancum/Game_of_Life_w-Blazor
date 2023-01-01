@@ -163,12 +163,7 @@
     }
     private void changeDivPattern()
     {
-        if (showPattern == true)
-        {
-            showPattern = false;
-        }
-        else
-            showPattern = true;
+        showPattern = !showPattern;
 
         if (addPattern == "Add Pattern")
             addPattern = "Add Pattern (-)";
@@ -178,12 +173,7 @@
     }
     private void changeDivCells()
     {
-        if (showCells == true)
-        {
-            showCells = false;
-        }
-        else
-            showCells = true;
+        showCells = !showCells;
 
         if (addCells == "Add Cells")
             addCells = "Add Cells (-)";
