@@ -111,7 +111,7 @@
     <hr>
     @if (showCells)
     {
-        <textarea rows="4" cols="50" @bind="@cells"></textarea>
+        <textarea rows="4" cols="50" @bind="@cells" placeholder=@textAreaPlaceholder></textarea>
         <p><input type="submit" class="btn btn-primary" value="Add" @onclick="createCell"></p>
     }
 </div>
@@ -126,6 +126,7 @@
     private int currentCount;
     private string addCells = "Add Cells";
     private string addPattern = "Add Pattern";
+    private string textAreaPlaceholder = "0,0\n0,1\n0,2";
     private bool showPattern = false;
     private bool showCells = false;
     private string cells = "";
